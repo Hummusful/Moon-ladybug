@@ -12,6 +12,7 @@ function movePlayer(dir) {
   playerPos += dir * 20;
   playerPos = Math.max(0, Math.min(750, playerPos));
   player.style.left = playerPos + "px";
+  console.log("Player moved to:", playerPos);
 }
 
 // Shoot a laser
@@ -56,10 +57,10 @@ function updateEnemies() {
     let enemy = enemies[i];
     let top = parseInt(enemy.style.top);
     top += 2;
-    if (top > 550) {
-      alert("Ladybugs conquered the Moon! 🐞🌕💀");
-      location.reload();
-    } else {
+    if (top > 550 && document.body.contains(player)) {
+  alert("Ladybugs conquered the Moon! 🐞🌕💀");
+  location.reload();
+} else {
       enemy.style.top = top + "px";
     }
   }
@@ -104,6 +105,6 @@ setInterval(() => {
 }, 30);
 
 // Enemy spawner
-setInterval(() => {
-  spawnEnemy();
-}, 1000);
+setTimeout(() => {
+  setInterval(spawnEnemy, 1000);
+}, 2000); // 2 second delay before first enemy
